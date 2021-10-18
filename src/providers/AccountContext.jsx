@@ -18,7 +18,7 @@ const AccountProvider = (props) => {
     domain: process.env.REACT_APP_AUTH0_DOMAIN,
     clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
     responseType: "token id_token",
-    redirectUri: "http://localhost:4040/authorize",
+    redirectUri: "https://atul-mcafee.us.auth0.com/authorize",
   });
 
   const otpStart = (email) => {
@@ -61,6 +61,7 @@ const AccountProvider = (props) => {
         },
         (err, authResult) => {
           if (err) {
+            console.log(err);
             reject(err);
             return;
           }
