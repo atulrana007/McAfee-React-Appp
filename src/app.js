@@ -12,10 +12,10 @@ import { AccountProvider } from "./providers/AccountContext";
 
 import "./app.css";
 
-const App = () => {
+const App = ({ pageConfig }) => {
   console.log("Bundle is working fine");
   return (
-    <AccountProvider>
+    <AccountProvider config={pageConfig}>
       <div id="app" className="d-flex flex-column h-100">
         <div className="container flex-grow-1">
           <div className="mt-5">

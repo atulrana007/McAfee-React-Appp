@@ -15,10 +15,10 @@ const AccountProvider = (props) => {
     localStorage.setItem("userData", JSON.stringify(data));
   };
   const webAuth = new auth0.WebAuth({
-    domain: process.env.REACT_APP_AUTH0_DOMAIN,
-    clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
+    domain: props.config.auth0Domain,
+    clientID: props.config.clientID,
     responseType: "token id_token",
-    redirectUri: "https://atul-mcafee.us.auth0.com/authorize",
+    redirectUri: props.config.redirectUri,
   });
 
   const otpStart = (email) => {
