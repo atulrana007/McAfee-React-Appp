@@ -22,7 +22,7 @@ const App = ({ pageConfig }) => {
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/login" exact component={Login} />
-              <Route exact path="/authorize" component={Authorize} />
+              <Route exact path="/authenticate" component={Authorize} />
               <Route exact path="/dashboard" component={DashBoard} />
               <ProtectedRoute path="/profile" component={Profile} />
               <ProtectedRoute path="/external-api" component={ExternalApi} />
