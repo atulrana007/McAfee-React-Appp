@@ -6,11 +6,18 @@ import Auth0ProviderWithHistory from "./auth/auth0-provider-with-history";
 
 import "./index.css";
 
-ReactDOM.render(
-  <Router>
-    <Auth0ProviderWithHistory>
-      <App />
-    </Auth0ProviderWithHistory>
-  </Router>,
-  document.getElementById("root")
-);
+window.LoginWidget = class LoginWidget {
+  init(opts) {
+    const pageConfig = opts.pageConfig;
+    if (!pageConfig) {
+      throw new Error("pageConfig must be provided in opts");
+    }
+
+    ReactDOM.render(
+      <Router>
+        <App pageConfig={pageConfig} />
+      </Router>,
+      document.getElementById("root")
+    );
+  }
+};

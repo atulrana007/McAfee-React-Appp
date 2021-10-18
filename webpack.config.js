@@ -1,13 +1,17 @@
-const path = require("path")
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
-const glob = require("glob")
+const path = require("path");
+const assets = require("./build/asset-manifest.json");
+
+const basePath = path.join(__dirname, "build");
+const lModules = assets.entrypoints.map((f) => path.resolve(basePath, f));
 
 module.exports = {
+  mode: "production",
   entry: {
-    "bundle.js": glob.sync("build/static/?(js|css)/main.*.?(js|css)").map(f => path.resolve(__dirname, f)),
+    main: lModules,
   },
   output: {
-    filename: "build/static/js/bundle.min.js",
+    filename: "bundle.min.js",
+    path: path.resolve(__dirname, "dist"),
   },
   module: {
     rules: [
@@ -15,7 +19,17 @@ module.exports = {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
       },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: ["script-loader"],
+      },
     ],
   },
-  plugins: [new UglifyJsPlugin()],
-}
+  // We need this or else, because we don't have sourcemaps
+  // we mess up debugging
+  devtool: "eval",
+  // plugins: [
+  //   new UglifyJsPlugin(),
+  // ]
+};
