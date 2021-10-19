@@ -1,0 +1,33 @@
+.SignupWrapper {
+  position: absolute;
+  top: 0;
+  left: 1rem;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+.RightContainer {
+  flex: 1;
+}
+.Heading {
+  font-size: 3rem;
+  font-weight: 600;
+  color: red;
+}
+.Intro {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.IntroSubHeading {
+  display: flex;
+  align-items: center;
+  color: black;
+}
+.Points {
+  font-size: 2rem;
+  font-weight: 400;
+  margin-left: 1rem;
+}

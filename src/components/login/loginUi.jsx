@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.css";
 import Login from "./Login";
+import { Link } from "react-router-dom";
 const LoginUI = (props) => {
   const {
     onChange,
@@ -29,8 +30,16 @@ const LoginUI = (props) => {
             <div className="IntroSubHeading">
               Enter your email address so we can find your account.
             </div>
+            <hr className="hr"></hr>
+            <div className="bottom-heading">
+              <p>
+                Don’t have an account?
+                <span>
+                  <Link to="/signUp"> Create one now</Link>
+                </span>
+              </p>
+            </div>
           </div>
-          <hr className="hr"></hr>
         </div>
         <div className="RightWrapper">
           <Login

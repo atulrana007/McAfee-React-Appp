@@ -14,6 +14,7 @@ const AccountProvider = (props) => {
   const storeUserData = (data) => {
     localStorage.setItem("userData", JSON.stringify(data));
   };
+  console.log("configs", props);
   const webAuth = new auth0.WebAuth({
     domain: props.config.auth0Domain,
     clientID: props.config.clientID,
@@ -30,8 +31,29 @@ const AccountProvider = (props) => {
   //   domain: process.env.REACT_APP_AUTH0_DOMAIN,
   //   clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
   //   responseType: "token id_token",
-  //   redirectUri:"http://localhost:4040/authenticate",
+  //   redirectUri: "http://localhost:4040/authenticate",
   // });
+
+  const SignupWithPassword = (email, password) => {
+    return new Promise((resolve, reject) => {
+      const variables = {
+        connection: "Username-Password-Authentication",
+        email,
+        password,
+      };
+      webAuth.signup(variables, (err, authResult) => {
+        if (err) {
+          console.log(err);
+          reject(err);
+          return;
+        }
+        if (authResult) {
+          window.origin = window.location.origin;
+          resolve(authResult);
+        }
+      });
+    });
+  };
 
   const otpStart = (email) => {
     return new Promise((resolve, reject) => {
@@ -93,6 +115,7 @@ const AccountProvider = (props) => {
         otpStart,
         otpLogin,
         loginWithPassword,
+        SignupWithPassword,
         AuthenticateUser,
         storeUserData,
         isAuthenticated,

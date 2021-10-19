@@ -11,7 +11,7 @@ const Main = () => {
       <AccountProvider>
         <Switch>
           <Route exact path="/" component={Login} />
-          <Route exact path="/authenticate" component={Authorize} />
+          <Route exact path="/authorize" component={Authorize} />
           <Route exact path="/dashboard" component={DashBoard} />
         </Switch>
       </AccountProvider>
