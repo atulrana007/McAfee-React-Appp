@@ -11,7 +11,7 @@ const SignupUI = (props) => {
           <img
             alt="McAfeeLogo"
             className="Logo"
-            src={process.env.PUBLIC_URL + "images/McAfee-Logo.png"}
+            src="https://cdn.jsdelivr.net/gh/atulrana007/McAfee-React-Appp/public/images/McAfee-Logo.png"
           />
           <div className="Intro">Create your McAfee account</div>
           <hr className="hr"></hr>
