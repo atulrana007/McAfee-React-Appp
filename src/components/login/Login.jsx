@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.css";
 import { AiOutlineMail } from "react-icons/ai";
+import { MdLockOutline } from "react-icons/md";
 
 const Login = (props) => {
   const {
@@ -19,7 +20,9 @@ const Login = (props) => {
       <form className="InputWrapper">
         {!switchLogin && (
           <>
-            <div className="InputLabel">Email</div>
+            {LoginForm.email !== "" ? (
+              <div className="InputLabel">Email</div>
+            ) : null}
             <div
               className="InputAndLogo"
               style={{
@@ -35,7 +38,7 @@ const Login = (props) => {
                 style={{
                   height: "2rem",
                   width: "2rem",
-                  "margin-top": "0.5rem",
+                  "margin-top": "1rem",
                   color: "rgb(175, 174, 174)",
                 }}
               />
@@ -52,22 +55,32 @@ const Login = (props) => {
           </>
         )}
         {LoginError.email && <div className="Error">{LoginError.email}</div>}
-        {Continue && !switchLogin && (
+        {!switchLogin && (
           <>
-            <div className="InputLabel">Password</div>
+            {LoginForm.password !== "" ? (
+              <div className="InputLabelPass">Password</div>
+            ) : null}
             <div className="InputAndLogo">
+              <MdLockOutline
+                style={{
+                  height: "2rem",
+                  width: "2rem",
+                  "margin-top": "1rem",
+                  color: "rgb(175, 174, 174)",
+                }}
+              />
               <input
                 type="password"
                 id="password"
                 name="password"
-                placeholder="********"
+                placeholder="Password"
                 className="Input"
                 onChange={onChange}
               />
             </div>
           </>
         )}
-        {Continue && switchLogin && LoginForm.otpAvailable && (
+        {switchLogin && LoginForm.otpAvailable && (
           <>
             <div className="InputLabel">one-time passcode</div>
             <div className="InputAndLogo">
@@ -80,48 +93,39 @@ const Login = (props) => {
             </div>
           </>
         )}
-        {!Continue && (
-          <button className="continueButton" onClick={onPressContinue}>
-            <div>Continue</div>
-          </button>
-        )}
-
-        {Continue && (
-          <button className="RequestOtp" onClick={onSubmit}>
-            {/* {!switchLogin ? (
+        <button className="RequestOtp" onClick={onSubmit}>
+          {/* {!switchLogin ? (
               <div>Login</div>
             ) : LoginForm.otpAvailable ? (
               <div>Sign in</div>
             ) : (
               <div>Request one-time passcode</div>
             )} */}
-            <div>Sign in</div>
-          </button>
-        )}
+          <div>Sign in</div>
+        </button>
       </form>
       <div className="Error">{LoginError.databaseError}</div>
-      {Continue && (
-        <div className="SwitchContainer">
-          <div className="Switch">OR</div>
-          {/* <button className="SwitchBtn" onClick={onToggle}>
+
+      <div className="SwitchContainer">
+        <div className="Switch">OR</div>
+        {/* <button className="SwitchBtn" onClick={onToggle}>
             {!switchLogin ? (
               <div>Sign in with a one-time passcode</div>
             ) : (
               <div>Sign in with a password</div>
             )}
           </button> */}
-          {!switchLogin && (
-            <button className="SwitchBtn" onClick={getOtp}>
-              <div>Sign in with a one-time passcode</div>
-            </button>
-          )}
-          {switchLogin && (
-            <button className="SwitchBtn" onClick={onToggle}>
-              <div>Sign in with password</div>
-            </button>
-          )}
-        </div>
-      )}
+        {!switchLogin && (
+          <button className="SwitchBtn" onClick={getOtp}>
+            <div>Sign in with a one-time passcode</div>
+          </button>
+        )}
+        {switchLogin && (
+          <button className="SwitchBtn" onClick={onToggle}>
+            <div>Sign in with password</div>
+          </button>
+        )}
+      </div>
     </div>
   );
 };

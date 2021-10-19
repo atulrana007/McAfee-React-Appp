@@ -8,16 +8,21 @@ const SignupUI = (props) => {
     <>
       <div className="SignupWrapper">
         <div className="leftContainer">
-          <div className="Heading">McAfee</div>
+          <img
+            alt="McAfeeLogo"
+            className="Logo"
+            src={process.env.PUBLIC_URL + "images/McAfee-Logo.png"}
+          />
           <div className="Intro">Create your McAfee account</div>
+          <hr className="hr"></hr>
           <div className="IntroSubHeading">
-            <div className="Intro">Step 1</div>
+            <div className="PointsHeading">Step 1</div>
             <div className="Points">
               Enter your email address so we can find your account.
             </div>
           </div>
           <div className="IntroSubHeading">
-            <div className="Intro">Step 2</div>
+            <div className="PointsHeading">Step 2</div>
             <div className="Points">
               Set a password and we’ll create your account.
             </div>

@@ -12,7 +12,12 @@ export default function SignupContainer(props) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (SignupForm.password === SignupForm.confirmPassword) {
+    if (
+      SignupForm.email !== "" &&
+      SignupForm.password !== "" &&
+      SignupForm.confirmPassword !== "" &&
+      SignupForm.password === SignupForm.confirmPassword
+    ) {
       try {
         const res = await SignupWithPassword(
           SignupForm.email,
@@ -28,6 +33,8 @@ export default function SignupContainer(props) {
       } catch (e) {
         console.log(e);
       }
+    } else {
+      console.log("enter details");
     }
   };
   const onChange = (e) => {

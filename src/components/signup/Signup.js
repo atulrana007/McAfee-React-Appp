@@ -1,14 +1,18 @@
 import React from "react";
 import "./style.css";
 import { AiOutlineMail } from "react-icons/ai";
+import { MdLockOutline } from "react-icons/md";
+import { AiFillEye } from "react-icons/ai";
 
 const Signup = (props) => {
   const { onSubmit, SignupForm, onChange } = props;
   return (
-    <div>
+    <div className="formWrapper">
       <form className="InputWrapper">
         <>
-          <div className="InputLabel">Email</div>
+          {SignupForm.email !== "" ? (
+            <div className="InputLabel">Email</div>
+          ) : null}
           <div
             className="InputAndLogo"
             // style={{
@@ -24,7 +28,7 @@ const Signup = (props) => {
               style={{
                 height: "2rem",
                 width: "2rem",
-                "margin-top": "0.5rem",
+                "margin-top": "0.7rem",
                 color: "rgb(175, 174, 174)",
               }}
             />
@@ -38,7 +42,9 @@ const Signup = (props) => {
               onChange={onChange}
             />
           </div>
-          <div className="InputLabel">Email</div>
+          {SignupForm.password !== "" ? (
+            <div className="InputLabelPass">Password</div>
+          ) : null}
           <div
             className="InputAndLogo"
             // style={{
@@ -50,11 +56,11 @@ const Signup = (props) => {
             //       : "",
             // }}
           >
-            <AiOutlineMail
+            <MdLockOutline
               style={{
                 height: "2rem",
                 width: "2rem",
-                "margin-top": "0.5rem",
+                "margin-top": "0.7rem",
                 color: "rgb(175, 174, 174)",
               }}
             />
@@ -67,8 +73,18 @@ const Signup = (props) => {
               className="Input"
               onChange={onChange}
             />
+            <AiFillEye
+              style={{
+                height: "2rem",
+                width: "2rem",
+                "margin-top": "0.7rem",
+                color: "rgb(175, 174, 174)",
+              }}
+            />
           </div>
-          <div className="InputLabel">Email</div>
+          {SignupForm.confirmPassword !== "" ? (
+            <div className="InputLabelCPass">Confirm Password</div>
+          ) : null}
           <div
             className="InputAndLogo"
             // style={{
@@ -80,11 +96,11 @@ const Signup = (props) => {
             //       : "",
             // }}
           >
-            <AiOutlineMail
+            <MdLockOutline
               style={{
                 height: "2rem",
                 width: "2rem",
-                "margin-top": "0.5rem",
+                "margin-top": "0.7rem",
                 color: "rgb(175, 174, 174)",
               }}
             />
@@ -93,21 +109,40 @@ const Signup = (props) => {
               id="confirmPassword"
               name="confirmPassword"
               value={SignupForm.confirmPassword}
-              placeholder="confirmPassword"
+              placeholder="Confirm Password"
               className="Input"
               onChange={onChange}
             />
+            <AiFillEye
+              style={{
+                height: "2rem",
+                width: "2rem",
+                "margin-top": "0.7rem",
+                color: "rgb(175, 174, 174)",
+              }}
+            />
           </div>
-          <button className="RequestOtp" onClick={onSubmit}>
-            {/* {!switchLogin ? (
-              <div>Login</div>
-            ) : LoginForm.otpAvailable ? (
-              <div>Sign in</div>
-            ) : (
-              <div>Request one-time passcode</div>
-            )} */}
-            <div>Sign Up</div>
-          </button>
+          <div className="PolicyLink">
+            By clicking Create my account, you accept{" "}
+            <span style={{ color: "rgb(66, 88, 255)" }}>
+              McAfee’s License <br />
+              Agreement
+            </span>{" "}
+            and
+            <span style={{ color: "rgb(66, 88, 255)" }}> Privacy Notice</span>
+          </div>
+
+          {SignupForm.email !== "" &&
+          SignupForm.password !== "" &&
+          SignupForm.confirmPassword !== "" ? (
+            <button className="SubmitButtonActive" onClick={onSubmit}>
+              <div>Create My Account</div>
+            </button>
+          ) : (
+            <button className="SubmitButton" onClick={onSubmit}>
+              <div>Create My Account</div>
+            </button>
+          )}
         </>
       </form>
     </div>
