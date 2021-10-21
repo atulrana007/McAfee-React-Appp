@@ -94,13 +94,7 @@ const Login = (props) => {
             </div>
           </>
         )}
-        <button
-          className="RequestOtp"
-          onClick={() => {
-            onSubmit();
-            trackClickEvent("continue-auth0");
-          }}
-        >
+        <button className="RequestOtp" onClick={onSubmit}>
           {/* {!switchLogin ? (
               <div>Login</div>
             ) : LoginForm.otpAvailable ? (
