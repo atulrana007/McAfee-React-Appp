@@ -13,6 +13,7 @@ const LoginUI = (props) => {
     Continue,
     onPressContinue,
     getOtp,
+    trackClickEvent,
   } = props;
 
   return (
@@ -51,6 +52,7 @@ const LoginUI = (props) => {
             onPressContinue={onPressContinue}
             Continue={Continue}
             getOtp={getOtp}
+            trackClickEvent={trackClickEvent}
           />
         </div>
       </div>

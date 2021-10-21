@@ -133,6 +133,21 @@ export default function LoginContainer(props) {
       });
     }
   };
+  const trackClickEvent = async (navElement) => {
+    let utag_data = window.utag_data;
+
+    let utag = window.utag;
+
+    let utagdata = { ...utag_data };
+
+    utagdata["tm_global_tealium_calltype"] = "manual";
+
+    utagdata["tm_global_navigation_element"] = navElement;
+
+    utagdata["tm_global_navigation_element_click"] = "true";
+
+    utag.link(utagdata);
+  };
 
   const child = React.Children.only(props.children);
   return React.cloneElement(child, {
@@ -145,5 +160,6 @@ export default function LoginContainer(props) {
     Continue,
     onPressContinue,
     getOtp,
+    trackClickEvent,
   });
 }

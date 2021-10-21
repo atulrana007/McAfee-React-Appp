@@ -28,7 +28,7 @@ const Signup = (props) => {
               style={{
                 height: "2rem",
                 width: "2rem",
-                "margin-top": "0.7rem",
+                marginTop: "0.7rem",
                 color: "rgb(175, 174, 174)",
               }}
             />
@@ -60,7 +60,7 @@ const Signup = (props) => {
               style={{
                 height: "2rem",
                 width: "2rem",
-                "margin-top": "0.7rem",
+                marginTop: "0.7rem",
                 color: "rgb(175, 174, 174)",
               }}
             />
@@ -77,7 +77,7 @@ const Signup = (props) => {
               style={{
                 height: "2rem",
                 width: "2rem",
-                "margin-top": "0.7rem",
+                marginTop: "0.7rem",
                 color: "rgb(175, 174, 174)",
               }}
             />
@@ -100,7 +100,7 @@ const Signup = (props) => {
               style={{
                 height: "2rem",
                 width: "2rem",
-                "margin-top": "0.7rem",
+                marginTop: "0.7rem",
                 color: "rgb(175, 174, 174)",
               }}
             />
@@ -117,7 +117,7 @@ const Signup = (props) => {
               style={{
                 height: "2rem",
                 width: "2rem",
-                "margin-top": "0.7rem",
+                marginTop: "0.7rem",
                 color: "rgb(175, 174, 174)",
               }}
             />

@@ -14,6 +14,7 @@ const Login = (props) => {
     Continue,
     onPressContinue,
     getOtp,
+    trackClickEvent,
   } = props;
   return (
     <div className="LoginWrapperContainer">
@@ -38,7 +39,7 @@ const Login = (props) => {
                 style={{
                   height: "2rem",
                   width: "2rem",
-                  "margin-top": "1rem",
+                  marginTop: "1rem",
                   color: "rgb(175, 174, 174)",
                 }}
               />
@@ -65,7 +66,7 @@ const Login = (props) => {
                 style={{
                   height: "2rem",
                   width: "2rem",
-                  "margin-top": "1rem",
+                  marginTop: "1rem",
                   color: "rgb(175, 174, 174)",
                 }}
               />
@@ -93,7 +94,13 @@ const Login = (props) => {
             </div>
           </>
         )}
-        <button className="RequestOtp" onClick={onSubmit}>
+        <button
+          className="RequestOtp"
+          onClick={() => {
+            onSubmit();
+            trackClickEvent("continue-auth0");
+          }}
+        >
           {/* {!switchLogin ? (
               <div>Login</div>
             ) : LoginForm.otpAvailable ? (
