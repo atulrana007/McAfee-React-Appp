@@ -26,15 +26,46 @@ const Signup = (props) => {
     for (const key of Object.keys(PasswordPolicyState)) {
       if (key !== "No_more_than_2_identical_characters_in_a_row") {
         getKeys.push(key);
-        console.log(getKeys);
         displayablerule.push(ruleMap[key]);
       }
     }
-  } else {
+  } else if (passwordRules?.passwordPolicy === "excellent") {
     for (const key of Object.keys(PasswordPolicyState)) {
       getKeys.push(key);
-      console.log(getKeys);
       displayablerule.push(ruleMap[key]);
+    }
+  } else if (passwordRules?.passwordPolicy === "fair") {
+    for (const key of Object.keys(PasswordPolicyState)) {
+      if (
+        key !== "No_more_than_2_identical_characters_in_a_row" ||
+        key !== "Special_characters"
+      ) {
+        getKeys.push(key);
+        displayablerule.push(ruleMap[key]);
+      }
+    }
+  } else if (passwordRules?.passwordPolicy === "low") {
+    for (const key of Object.keys(PasswordPolicyState)) {
+      if (
+        key !== "No_more_than_2_identical_characters_in_a_row" ||
+        key !== "Special_characters" ||
+        key !== "Lower_case_Upper_Case_Numbers"
+      ) {
+        getKeys.push(key);
+        displayablerule.push(ruleMap[key]);
+      }
+    }
+  } else if (passwordRules?.passwordPolicy === "none") {
+    for (const key of Object.keys(PasswordPolicyState)) {
+      if (
+        key !== "No_more_than_2_identical_characters_in_a_row" ||
+        key !== "Special_characters" ||
+        key !== "Lower_case_Upper_Case_Numbers" ||
+        key !== "Length_Check"
+      ) {
+        getKeys.push(key);
+        displayablerule.push(ruleMap[key]);
+      }
     }
   }
   return (

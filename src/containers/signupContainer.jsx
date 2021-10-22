@@ -38,6 +38,7 @@ export default function SignupContainer(props) {
         : null;
     const specialCharacterPolicy = SpecialCharacterPolicy();
     const identicalLessThan2Characters = IdenticalCharacters();
+    console.log("check this first", rules.passwordPolicy);
 
     switch (rules.passwordPolicy) {
       case "excellent":
