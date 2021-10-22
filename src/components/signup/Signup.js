@@ -1,11 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.css";
 import { AiOutlineMail } from "react-icons/ai";
 import { MdLockOutline } from "react-icons/md";
 import { AiFillEye } from "react-icons/ai";
+import Rules from "../../utils/Rules";
+import { MdOutlineCancel } from "react-icons/md";
+import { TiTick } from "react-icons/ti";
 
 const Signup = (props) => {
-  const { onSubmit, SignupForm, onChange } = props;
+  const {
+    onSubmit,
+    SignupForm,
+    onChange,
+    passwordRules,
+    PasswordPolicyState,
+    onClick,
+  } = props;
+  const [displayRules, setDisplayRules] = useState(false);
+  const ruleMap =
+    passwordRules &&
+    Rules({ count: passwordRules?.password_complexity_options?.min_length });
+  const displayablerule = [];
+  const getKeys = [];
+  if (passwordRules?.passwordPolicy === "good") {
+    for (const key of Object.keys(PasswordPolicyState)) {
+      if (key !== "No_more_than_2_identical_characters_in_a_row") {
+        getKeys.push(key);
+        console.log(getKeys);
+        displayablerule.push(ruleMap[key]);
+      }
+    }
+  } else {
+    for (const key of Object.keys(PasswordPolicyState)) {
+      getKeys.push(key);
+      console.log(getKeys);
+      displayablerule.push(ruleMap[key]);
+    }
+  }
   return (
     <div className="formWrapper">
       <form className="InputWrapper">
@@ -72,6 +103,11 @@ const Signup = (props) => {
               placeholder="Password"
               className="Input"
               onChange={onChange}
+              onFocus={() => {
+                onClick();
+                setDisplayRules(true);
+              }}
+              onBlur={() => setDisplayRules(false)}
             />
             <AiFillEye
               style={{
@@ -82,6 +118,32 @@ const Signup = (props) => {
               }}
             />
           </div>
+          <div>
+            {displayRules ? (
+              <>
+                <div className="Password-rules">
+                  {displayablerule.map((item, index) => {
+                    return (
+                      <div className="Rule">
+                        {" "}
+                        <div className="checkbox">
+                          {PasswordPolicyState[getKeys[index]] ? (
+                            <TiTick className="tick" />
+                          ) : (
+                            <MdOutlineCancel className="cancel" />
+                          )}
+                        </div>
+                        {item}
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            ) : (
+              console.log("not going inside that")
+            )}
+          </div>
+
           {SignupForm.confirmPassword !== "" ? (
             <div className="InputLabelCPass">Confirm Password</div>
           ) : null}
@@ -112,6 +174,7 @@ const Signup = (props) => {
               placeholder="Confirm Password"
               className="Input"
               onChange={onChange}
+              onFocus={() => setDisplayRules(true)}
             />
             <AiFillEye
               style={{
@@ -131,18 +194,18 @@ const Signup = (props) => {
             and
             <span style={{ color: "rgb(66, 88, 255)" }}> Privacy Notice</span>
           </div>
-
-          {SignupForm.email !== "" &&
-          SignupForm.password !== "" &&
-          SignupForm.confirmPassword !== "" ? (
-            <button className="SubmitButtonActive" onClick={onSubmit}>
-              <div>Create My Account</div>
-            </button>
-          ) : (
-            <button className="SubmitButton" onClick={onSubmit}>
-              <div>Create My Account</div>
-            </button>
-          )}
+          <button
+            className={
+              SignupForm.email !== "" &&
+              SignupForm.password !== "" &&
+              SignupForm.confirmPassword !== ""
+                ? "SubmitButtonActive"
+                : "SubmitButton"
+            }
+            onClick={onSubmit}
+          >
+            <div>Create My Account</div>
+          </button>
         </>
       </form>
     </div>

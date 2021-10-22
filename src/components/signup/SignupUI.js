@@ -3,7 +3,14 @@ import Signup from "./Signup";
 import "./style.css";
 
 const SignupUI = (props) => {
-  const { onSubmit, SignupForm, onChange } = props;
+  const {
+    onSubmit,
+    SignupForm,
+    onChange,
+    onClick,
+    passwordRules,
+    PasswordPolicyState,
+  } = props;
   return (
     <>
       <div className="SignupWrapper">
@@ -33,6 +40,9 @@ const SignupUI = (props) => {
             onChange={onChange}
             onSubmit={onSubmit}
             SignupForm={SignupForm}
+            onClick={onClick}
+            passwordRules={passwordRules}
+            PasswordPolicyState={PasswordPolicyState}
           ></Signup>
         </div>
       </div>

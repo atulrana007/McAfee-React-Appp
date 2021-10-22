@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 import Login from "./Login";
 import { Link } from "react-router-dom";
@@ -14,6 +14,9 @@ const LoginUI = (props) => {
     onPressContinue,
     getOtp,
     trackClickEvent,
+    onClick,
+    passwordRules,
+    PasswordPolicyState,
   } = props;
 
   return (
@@ -53,6 +56,9 @@ const LoginUI = (props) => {
             Continue={Continue}
             getOtp={getOtp}
             trackClickEvent={trackClickEvent}
+            onClick={onClick}
+            passwordRules={passwordRules}
+            PasswordPolicyState={PasswordPolicyState}
           />
         </div>
       </div>

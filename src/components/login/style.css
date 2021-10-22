@@ -27,6 +27,16 @@
   font-weight: 600;
   margin-bottom: 1rem;
 }
+.Password-rules {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 1rem;
+  background-color: rgb(54, 123, 255, 0.3);
+  padding: 1rem;
+  border-radius: 1.5rem;
+}
 .InputAndLogo {
   display: flex;
   margin-top: 2rem;
@@ -108,6 +118,14 @@
   font-size: 2rem;
   outline: none;
 }
+.Rule {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+}
 .continueButton {
   margin-top: 1rem;
   padding: 1rem 1rem;
@@ -143,6 +161,22 @@
   font-size: inherit;
   outline: none;
   cursor: pointer;
+}
+.checkbox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 1rem;
+}
+.tick {
+  height: 2rem;
+  width: 2rem;
+  color: rgb(54, 230, 54);
+}
+.cancel {
+  height: 2rem;
+  width: 2rem;
+  color: rgb(228, 57, 57);
 }
 
 .SwitchContainer {

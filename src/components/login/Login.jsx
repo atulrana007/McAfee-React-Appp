@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.css";
 import { AiOutlineMail } from "react-icons/ai";
 import { MdLockOutline } from "react-icons/md";
+import { MdOutlineCancel } from "react-icons/md";
+import { TiTick } from "react-icons/ti";
+import Rules from "../../utils/Rules";
 
 const Login = (props) => {
   const {
@@ -15,7 +18,26 @@ const Login = (props) => {
     onPressContinue,
     getOtp,
     trackClickEvent,
+    onClick,
+    passwordRules,
+    PasswordPolicyState,
   } = props;
+  const [displayRules, setDisplayRules] = useState(false);
+  const ruleMap =
+    passwordRules &&
+    Rules({ count: passwordRules?.password_complexity_options?.min_length });
+  const displayablerule = [];
+  const getKeys = [];
+  if (passwordRules?.passwordPolicy === "good") {
+    for (const key of Object.keys(PasswordPolicyState)) {
+      if (key != "No_more_than_2_identical_characters_in_a_row") {
+        getKeys.push(key);
+        console.log(getKeys);
+        displayablerule.push(ruleMap[key]);
+      }
+    }
+  }
+  console.log("please check this", PasswordPolicyState.Length_Check);
   return (
     <div className="LoginWrapperContainer">
       <form className="InputWrapper">
@@ -77,8 +99,36 @@ const Login = (props) => {
                 placeholder="Password"
                 className="Input"
                 onChange={onChange}
+                onFocus={() => {
+                  onClick();
+                  setDisplayRules(true);
+                }}
+                onBlur={() => setDisplayRules(false)}
               />
             </div>
+            {displayRules ? (
+              <>
+                <div className="Password-rules">
+                  {displayablerule.map((item, index) => {
+                    return (
+                      <div className="Rule">
+                        {" "}
+                        <div className="checkbox">
+                          {PasswordPolicyState[getKeys[index]] ? (
+                            <TiTick className="tick" />
+                          ) : (
+                            <MdOutlineCancel className="cancel" />
+                          )}
+                        </div>
+                        {item}
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            ) : (
+              console.log("not going inside that")
+            )}
           </>
         )}
         {switchLogin && LoginForm.otpAvailable && (

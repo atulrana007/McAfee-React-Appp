@@ -1,10 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import auth0 from "auth0-js";
-
+import axios from "axios";
 const AccountContext = React.createContext({});
 
 const AccountProvider = (props) => {
+  const [tenantClient, setTenantClient] = useState(null);
+
   const [isAuthenticated, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    const fetchClient = async () => {
+      try {
+        const res = await axios.get(
+          `https://${props.config.auth0Domain}/client/bueEPrMsxiheV5mhaMfJJQk6PdvFtA6g.js`
+        );
+        const data = res.data;
+        if (typeof data === "string") {
+          const filteredData = data.slice(16, -2);
+          const jsonData = JSON.parse(filteredData);
+          const DB_ARRAY = jsonData?.strategies[0]?.connections.filter(
+            (item) => item.name === "Username-Password-Authentication"
+          );
+          setTenantClient(DB_ARRAY);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchClient();
+  }, []);
 
   const AuthenticateUser = (authToken) => {
     localStorage.setItem("auth_token", authToken);
@@ -31,13 +55,13 @@ const AccountProvider = (props) => {
   //   domain: process.env.REACT_APP_AUTH0_DOMAIN,
   //   clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
   //   responseType: "token id_token",
-  //   redirectUri: "http://localhost:4040/authenticate",
+  //   redirectUri: "http://localhost:4040/authorize",
   // });
 
   const SignupWithPassword = (email, password) => {
     return new Promise((resolve, reject) => {
       const variables = {
-        connection: "Test-CustomDB",
+        connection: "Username-Password-Authentication",
         email,
         password,
       };
@@ -89,7 +113,7 @@ const AccountProvider = (props) => {
     return new Promise((resolve, reject) => {
       webAuth.login(
         {
-          realm: "Test-CustomDB",
+          realm: "Username-Password-Authentication",
           username,
           password,
         },
@@ -119,6 +143,7 @@ const AccountProvider = (props) => {
         AuthenticateUser,
         storeUserData,
         isAuthenticated,
+        tenantClient,
       }}
     >
       {props.children}

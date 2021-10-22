@@ -1,13 +1,17 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 import { Hero, HomeContent } from "../components";
+import axios from "axios";
 
-const Home = () => (
-  <Fragment>
-    <Hero />
-    <hr />
-    <HomeContent />
-  </Fragment>
-);
+const Home = () => {
+  return (
+    <Fragment>
+      <Hero />
+
+      <hr />
+      <HomeContent />
+    </Fragment>
+  );
+};
 
 export default Home;

@@ -1,8 +1,25 @@
 import React, { useContext, useState } from "react";
 import { AccountContext } from "../providers/AccountContext";
-export default function LoginContainer(props) {
-  const { loginWithPassword, otpLogin, otpStart } = useContext(AccountContext);
+import Rules from "../utils/Rules";
+import {
+  PasswordLengthWise,
+  AlphaNumericCheck,
+  SpecialCharacterPolicy,
+  IdenticalCharacters,
+} from "../validator/PasswordValidator";
 
+export default function LoginContainer(props) {
+  const { loginWithPassword, otpLogin, otpStart, tenantClient } =
+    useContext(AccountContext);
+
+  const [passwordRules, setPasswordRules] = useState(null);
+  const [PasswordPolicyState, setPasswordPolicyState] = useState({
+    No_more_than_2_identical_characters_in_a_row: false,
+    Special_characters: false,
+    Lower_case_Upper_Case_Numbers: false,
+    Length_Check: false,
+    Non_empty_Password_Required: false,
+  });
   const [LoginForm, setLoginForm] = useState({
     email: "",
     password: "",
@@ -64,8 +81,120 @@ export default function LoginContainer(props) {
         break;
     }
   };
+  const validatePassword = (rules, value) => {
+    console.log("password---->", value);
+    console.log("length--------->", value.length);
+    const copyObj = {
+      ...PasswordPolicyState,
+    };
+    const alphaNumericPolicy = AlphaNumericCheck();
+    const lengthPolicy =
+      rules.passwordPolicy !== "none"
+        ? PasswordLengthWise(rules?.password_complexity_options?.min_length)
+        : null;
+    const specialCharacterPolicy = SpecialCharacterPolicy();
+    const identicalLessThan2Characters = IdenticalCharacters();
 
-  const onChange = (e) => {
+    switch (rules.passwordPolicy) {
+      case "excellent":
+        if (value !== "") {
+          copyObj.Non_empty_Password_Required = true;
+        } else {
+          copyObj.Non_empty_Password_Required = false;
+        }
+        if (identicalLessThan2Characters.check(value)) {
+          copyObj.No_more_than_2_identical_characters_in_a_row = true;
+        } else {
+          copyObj.No_more_than_2_identical_characters_in_a_row = false;
+        }
+        if (lengthPolicy.check(value)) {
+          copyObj.Length_Check = true;
+        } else {
+          copyObj.Length_Check = false;
+        }
+        if (specialCharacterPolicy.check(value)) {
+          copyObj.Special_characters = true;
+        } else {
+          copyObj.Special_characters = false;
+        }
+
+        if (alphaNumericPolicy.check(value)) {
+          copyObj.Lower_case_Upper_Case_Numbers = true;
+        } else {
+          copyObj.Lower_case_Upper_Case_Numbers = false;
+        }
+        break;
+      case "good":
+        if (value !== "") {
+          copyObj.Non_empty_Password_Required = true;
+        } else {
+          copyObj.Non_empty_Password_Required = false;
+        }
+        if (lengthPolicy.check(value)) {
+          console.log("getting inside this");
+
+          copyObj.Length_Check = true;
+        } else {
+          copyObj.Length_Check = false;
+        }
+        if (specialCharacterPolicy.check(value)) {
+          copyObj.Special_characters = true;
+        } else {
+          copyObj.Special_characters = false;
+        }
+        if (alphaNumericPolicy.check(value)) {
+          copyObj.Lower_case_Upper_Case_Numbers = true;
+        } else {
+          copyObj.Lower_case_Upper_Case_Numbers = false;
+        }
+        break;
+      case "fair":
+        if (value !== "") {
+          copyObj.Non_empty_Password_Required = true;
+        } else {
+          copyObj.Non_empty_Password_Required = false;
+        }
+        if (lengthPolicy.check(value)) {
+          console.log("getting inside this");
+
+          copyObj.Length_Check = true;
+        } else {
+          copyObj.Length_Check = false;
+        }
+        if (alphaNumericPolicy.check(value)) {
+          copyObj.Lower_case_Upper_Case_Numbers = true;
+        } else {
+          copyObj.Lower_case_Upper_Case_Numbers = false;
+        }
+        break;
+      case "low":
+        if (value !== "") {
+          copyObj.Non_empty_Password_Required = true;
+        } else {
+          copyObj.Non_empty_Password_Required = false;
+        }
+        if (lengthPolicy.check(value)) {
+          console.log("getting inside this");
+
+          copyObj.Length_Check = true;
+        } else {
+          copyObj.Length_Check = false;
+        }
+        break;
+      default:
+        break;
+    }
+    setPasswordPolicyState(copyObj);
+  };
+  const onClick = (e) => {
+    console.log(tenantClient[0]);
+    setPasswordRules(tenantClient[0]);
+  };
+
+  const onChange = async (e) => {
+    if (e.target.name === "password" && passwordRules) {
+      validatePassword(passwordRules, e.target.value);
+    }
     setLoginForm({
       ...LoginForm,
       [e.target.name]: e.target.value,
@@ -161,6 +290,8 @@ export default function LoginContainer(props) {
     Continue,
     onPressContinue,
     getOtp,
-    // trackClickEvent,
+    onClick,
+    passwordRules,
+    PasswordPolicyState,
   });
 }
